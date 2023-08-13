@@ -9,3 +9,19 @@ void Sieve(int n, vector<int>& primes) {
         primes.push_back(i);
     }
 }
+
+vector<int> GetPrimes(int num) {
+    static const vector<int> Primes = Sieve(100005);
+    vector<int> ret;
+    for(auto p : Primes) {
+        if(p > num)
+            break;
+        if(num % p)
+            continue;
+        ret.push_back(p);
+        while(num % p == 0)
+            num = num/p;
+    }
+    return ret;
+}
+
