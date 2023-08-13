@@ -1,5 +1,4 @@
-int modPow(int x, unsigned int y, unsigned int m)
-{
+int modPow(int x, unsigned int y, unsigned int m) {
     if (y == 0)
         return 1;
     long p = modPow(x, y / 2, m) % m;
