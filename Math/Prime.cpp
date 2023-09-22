@@ -26,17 +26,21 @@ vector<int> Eratosthenes2(int n) {
 
 // 埃拉托斯特尼篩法 - 變形, 回傳 n 的質因數
 vector<int> Eratosthenes3(int n) {
-    vector<bool> a(n+1, true);
     vector<int> primes;
-    for (int i = 2; i <= n; i++) {
-        if (!a[i]) continue;
-        if(n % i == 0) {
-            primes.push_back(i);
-            while(n % i == 0)
-                n = n/i;
-        }
-        for (int j = i*i; j <= n; j += i) a[j] = false;
+    if(n >= 2 && n % 2 == 0) {
+        primes.push_back(2);
+        while(n % 2 == 0)
+            n = n/2;
     }
+    for (int i = 3; i*i <= n; i += 2) {
+        if(n % i)
+            continue;
+        primes.push_back(i);
+        while(n % i == 0)
+            n = n/i;
+    }
+    if(n > 2)
+        primes.push_back(n);
     return primes;
 }
 
