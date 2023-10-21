@@ -17,11 +17,12 @@ void BFS(int n, vector<vector<int>>& edges, vector<int>& values) {
             q.push(i);
     }
     
-    vector<int> sum = values;
+    vector<long long> sum(values.begin(), values.end());
     while(q.size()) {
         int i = q.front();
         q.pop();
         --cnt[i];
+
         for (int j : G[i]) {
             if (cnt[j] == 0)
                 continue;
