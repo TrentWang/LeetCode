@@ -38,6 +38,7 @@ template<class T> struct Seg {
     }
 };
 
+
 // segment tree with range update (need lazy)
 template<class T> struct Seg {
     int lo, ro, size;
@@ -54,17 +55,17 @@ template<class T> struct Seg {
     void updateRange(int left, int right, int val) {
         return update(1, lo, ro, left, right, val);
     }
-    LL queryRange(int left, int right) {
+    T queryRange(int left, int right) {
         return query(1, lo, ro, left, right);
     }
-    void update(int curr, int left, int right, int updateLeft, int updateRight, LL val) {
+    void update(int curr, int left, int right, int updateLeft, int updateRight, T val) {
         if(updateLeft > updateRight)
             return;
         if(left == updateLeft && right == updateRight) {
             if(left == right) {
                 seg[curr] += val;
             } else {
-                seg[curr] += LL(right - left + 1) * val;
+                seg[curr] += T(right - left + 1) * val;
                 lazy[curr] += val;
             }
             return;
@@ -78,7 +79,7 @@ template<class T> struct Seg {
         update(rightChild, mid+1, right, max(mid+1, updateLeft), updateRight, val);
         seg[curr] = seg[leftChild] + seg[rightChild];
     }
-    LL query(int curr, int left, int right, int queryLeft, int queryRight) {
+    T query(int curr, int left, int right, int queryLeft, int queryRight) {
         if(queryLeft > queryRight)
             return 0;
         if(left == queryLeft && right == queryRight)
@@ -92,11 +93,63 @@ template<class T> struct Seg {
              + query(rightChild, mid+1, right, max(mid+1, queryLeft), queryRight);
     }
     void doLazy(int curr, int leftChild, int rightChild, int left, int mid, int right) {
-        seg[leftChild] += LL(mid - left + 1) * lazy[curr];
+        seg[leftChild] += T(mid - left + 1) * lazy[curr];
         lazy[leftChild] += lazy[curr];
-        seg[rightChild] += LL(right - (mid + 1) + 1) * lazy[curr];
+        seg[rightChild] += T(right - (mid + 1) + 1) * lazy[curr];
         lazy[rightChild] += lazy[curr];
         lazy[curr] = 0;
     }
+};
+
+
+// segment tree with range update (need lazy)
+template<class T> struct SegmentTree {
+    int n;
+    vector<T> lzy;
+    vector<T> sum;
+
+    SegmentTree (int _n) : n(_n) {
+        // range: [0:n-1]
+        lzy.resize(4*n, 0);
+        sum.resize(4*n, 0);
+    }
+    void updateRange(int l, int r, int val) {
+        update(0, 0, n-1, l, r, val);
+    }
+    T queryRange(int l, int r) {
+        return query(0, 0, n-1, l, r);
+    }
+    void update_lzy(int curr, int l, int r) {
+        if(lzy[curr] == 0)
+            return;
+        if (l != r) {
+            lzy[curr*2+1] += lzy[curr];
+            lzy[curr*2+2] += lzy[curr];
+        }
+        sum[curr] = sum[curr] + lzy[curr] * (r-l+1);
+        lzy[curr] = 0;
+    }
+    void update(int curr, int l, int r, int ul, int ur, int val) {
+        update_lzy(curr, l, r);
+        if (r < ul || l > ur) 
+            return;
+        if (l >= ul && r <= ur) {
+            lzy[curr] = val;
+            return update_lzy(curr, l, r);
+        }
+        int m = (l+r) >> 1, leftChild = curr*2+1, rightChild = curr*2+2;
+        update(leftChild, l, m, ul, ur, val);
+        update(rightChild, m+1, r, ul, ur, val);
+        sum[curr] = sum[leftChild] + sum[rightChild];
+    }
+    T query(int curr, int l, int r, int ql, int qr) {
+        update_lzy(curr, l, r);
+        if (r < ql || l > qr) 
+            return 0;
+        if (l >= ql && r <= qr)
+            return sum[curr];
+        int m = (l+r) >> 1;
+        return query(curr*2+1, l, m, ql, qr) + query(curr*2+2, m+1, r, ql, qr);
+    }    
 };
 
