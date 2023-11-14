@@ -6,6 +6,7 @@ template<class T> struct Seg {
 
     T comb(T a, T b) { return max(a, b); } //change here
 
+    // 0-indexed
     void init(int _n) { 
         n = _n; 
         seg.assign(2*n, DEFAULT);
@@ -23,7 +24,7 @@ template<class T> struct Seg {
         for(int i = n-1; i > 0; i--) 
             seg[i] = comb(seg[i<<1], seg[i<<1|1]); 
     }
-    void upd(int p, T val) { // set val at position p
+    void update(int p, T val) { // set val at position p
         seg[p += n] = val; 
         for (p /= 2; p; p /= 2) 
             pull(p); 
@@ -37,6 +38,45 @@ template<class T> struct Seg {
         return comb(ra, rb);
     }
 };
+
+
+
+// simple segment tree (no range update)
+struct SegTree {
+    vector<LL> tree;
+    int N;
+    // 0-indexed
+    SegTree(int _n) : N(_n) {
+        tree.resize(4*N);
+    }
+    void update(int ind, LL val) {
+        update(ind, val, 0, N-1, 0);
+    }    
+    void update(int ind, LL val, int l, int r, int i) {
+        if (l == r) {
+            tree[i] = val;
+            return;
+        }
+        int m = (l+r) >> 1;
+        if (ind <= m) 
+            update(ind, val, l, m, i*2+1);
+        else 
+            update(ind, val, m+1, r, i*2+2);
+        tree[i] = max(tree[i*2+1], tree[i*2+2]);
+    }
+    LL query(int x, int y) {
+        return query(x, y, 0, N-1, 0);
+    }
+    LL query(int x, int y, int l, int r, int i) {        
+        if (x > r || y < l) 
+            return 0;
+        if (x <= l && r <= y)
+            return tree[i];
+        int m = (l+r) >> 1;
+        return max(query(x, y, l, m, i*2+1), query(x, y, m+1, r, i*2+2));
+    }
+};
+
 
 
 // segment tree with range update (need lazy)
@@ -100,6 +140,7 @@ template<class T> struct Seg {
         lazy[curr] = 0;
     }
 };
+
 
 
 // segment tree with range update (need lazy)
