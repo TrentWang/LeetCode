@@ -31,8 +31,10 @@ int C4(int n, int m) {
         return 1;
     int ans = 1;
     m = min(m, n-m);
-    for(int i = 1; i <= m; ++i)
+    for(int i = 1; i <= m; ++i) {
+        // ans = ans * (n-i+1) / i % mod;  <=== 這是錯的!!!!! 除法取模會讓原本可以整除的地方變成不能整除, 要取模請參考 C5
         ans = ans * (n-i+1) / i;
+    }
     return ans;
 }
 /*
@@ -59,3 +61,15 @@ for(int i = 1; i <= m; ++i)
 ..... 
 */
 
+int C5(int n, int m) {
+    if(n == m || m == 0)
+        return 1;
+    m = min(m, n-m);
+    long x = 1, y = 1;
+    for(int i = 1; i <= m; ++i) {
+        x = x * (n-i+1) % mod;
+        y = y * i % mod;
+    }
+    // 費馬小定理, 僅限於 mod 為質數時
+    return x * quickPow(y, mod-2) % mod;
+}
