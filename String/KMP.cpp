@@ -1,3 +1,24 @@
+// s: main string
+// p: pattern string
+// return: all indexes of occurrence of p in s
+vector<int> getPatternMatchingIndex(const string& s, const string& p) {
+    vector<int> ret;
+    string t = p + "@" + s;
+    vector<int> lps(1, 0);
+    for(int i = 1; i < t.size(); ++i) {
+        int ind = lps[i-1];
+        while(ind > 0 && t[ind] != t[i]) 
+            ind = lps[ind-1];
+        lps.push_back((t[ind] == t[i]) ? ind + 1 : 0);
+    }
+    for(int i = 0; i < lps.size(); ++i){
+        if(lps[i] == p.size()) 
+            ret.push_back(i - 2*p.size());
+    }
+    return ret;
+}
+
+////////////////////////////////////////////////////////////////////////
 // https://yeefun.github.io/kmp-algorithm-for-beginners/
 
 // Longest Proper Prefix Which Is Also Suffix
