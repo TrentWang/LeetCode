@@ -13,7 +13,7 @@ vector<int> rabin_karp(const string& pattern, const string& text) {
     
     vector<long long> hash(TS + 1, 0); 
     for (int i = 0; i < TS; i++)
-        hash[i+1] = (hash[i] + (text[i] - 'a' + 1) * p_pow[i]) % mod; 
+        hash[i+1] = (hash[i] + (text[i] - 'a' + 1) * p_pow[i]) % mod; // a 用 1, 不能用 0, 不然會無法區分 a 跟 aa (如果 a 用 0, 那 a 跟 aa 都會是 0)
     
     long long hash_p = 0; 
     for (int i = 0; i < PS; i++) 

@@ -18,6 +18,7 @@ vector<int> getPatternMatchingIndex(const string& s, const string& p) {
     return ret;
 }
 
+
 ////////////////////////////////////////////////////////////////////////
 // https://yeefun.github.io/kmp-algorithm-for-beginners/
 
@@ -98,3 +99,4 @@ vector<int> allIndexOfByKmp(const string &s, const string &p) {
     
     return ret;
 }
+////////////////////////////////////////////////////////////////////////
