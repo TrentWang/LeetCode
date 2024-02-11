@@ -2,7 +2,7 @@
 // pattern: pattern string
 // text: text string
 // return: vector of indices where pattern occurs in text
-vector<int> rabin_karp(const string& pattern, const string& text) {
+vector<int> RabinKarp(const string& pattern, const string& text) {
     const int p = 31; 
     const int mod = 1e9 + 9;
     int PS = pattern.size(), TS = text.size();
