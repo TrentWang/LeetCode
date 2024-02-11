@@ -2,6 +2,7 @@
 // https://www.youtube.com/live/n4an59As73Y?si=wmmfA8OO0cRsZiDi
 
 // return a vector dp that dp[i] is the maximum length K s.t. s[0:K-1] == s[i-K+1:i]
+// Time Complexity: O(n)
 vector<int> longestCommonPrefixSuffix(string s) {
     
     int n = s.size();
