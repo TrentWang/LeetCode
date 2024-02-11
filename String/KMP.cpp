@@ -34,7 +34,7 @@ vector<int> allIndexOfByKmp(const string &s, const string &p) {
     int sI = 0;
     int pI = 0;
 
-    vector<int> next = getNext(p);
+    vector<int> next = longestCommonPrefixSuffix(p);
 
     while (sI < s.size()) {
         if (s[sI] == p[pI]) {
