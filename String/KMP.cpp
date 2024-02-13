@@ -1,3 +1,4 @@
+// 3008. Find Beautiful Indices in the Given Array II
 // s: main string
 // p: pattern string
 // return: all indexes of occurrence of p in s
@@ -13,6 +14,7 @@ vector<int> getPatternMatchingIndex(const string& s, const string& p) {
     return ret;
 }
 ////////////////////////////////////////////////////////////////////////
+
 
 
 // https://github.com/wisdompeak/LeetCode/blob/master/String/028.Implement-strStr/028.Implement-strStr-KMP.cpp
@@ -48,7 +50,7 @@ int strStr(string s, string p) {
 
 // s: main string
 // p: pattern string
-// return: the maximum length K of matching p's substr for s[i] s.t. p[0:K-1] == s[i-K+1:i]
+// return: the maximum length K for s[i] s.t. p[0:K-1] == s[i-K+1:i]
 vector<int> getMatchedLen (string s, string p) {
     vector<int> suf = longestCommonPrefixSuffix(p);
 
