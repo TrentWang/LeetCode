@@ -1,3 +1,18 @@
+// s: main string
+// p: pattern string
+// return: all indexes of occurrence of p in s
+vector<int> getPatternMatchingIndex(const string& s, const string& p) {
+    string t = p + "@" + s;
+    vector<int> suf = longestCommonPrefixSuffix(t);
+    for(int i = 0; i < suf.size(); ++i){
+        if(lps[i] == p.size()) 
+            ret.push_back(i - 2*p.size());
+    }
+    return ret;
+}
+////////////////////////////////////////////////////////////////////////
+
+
 // https://github.com/wisdompeak/LeetCode/blob/master/String/028.Implement-strStr/028.Implement-strStr-KMP.cpp
 // https://www.youtube.com/live/JUlgxb8ZwpQ?si=GekEaty4WGjjzVXH
 // s: main string
