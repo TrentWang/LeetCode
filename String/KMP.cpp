@@ -35,7 +35,7 @@ int strStr(string s, string p) {
 vector<int> getMatchedLen (string s, string p) {
     vector<int> suf = longestCommonPrefixSuffix(p);
 
-    int n = s.size();
+    int n = s.size(), m = p.size();
     vector<int> dp(n, 0); // dp[i]: the maximum length K s.t. p[0:K-1] == s[i-K+1:i]
     dp[0] = (s[0] == p[0]);
 
