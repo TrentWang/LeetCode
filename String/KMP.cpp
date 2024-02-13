@@ -4,8 +4,10 @@
 vector<int> getPatternMatchingIndex(const string& s, const string& p) {
     string t = p + "@" + s;
     vector<int> suf = longestCommonPrefixSuffix(t);
+    
+    vector<int> ret;
     for(int i = 0; i < suf.size(); ++i){
-        if(lps[i] == p.size()) 
+        if(suf[i] == p.size()) 
             ret.push_back(i - 2*p.size());
     }
     return ret;
