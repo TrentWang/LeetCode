@@ -1,4 +1,8 @@
 // https://github.com/wisdompeak/LeetCode/blob/master/String/028.Implement-strStr/028.Implement-strStr-KMP.cpp
+// https://www.youtube.com/live/JUlgxb8ZwpQ?si=GekEaty4WGjjzVXH
+// s: main string
+// p: pattern string
+// return: index of first occurrence of p in s, -1 if not found
 int strStr(string s, string p) {
     int n = s.size();
     int m = p.size();
@@ -17,10 +21,7 @@ int strStr(string s, string p) {
         while (j > 0 && (j == m || s[i] != p[j]))
             j = suf[j-1];
 
-        if(j == 0)
-            dp[i] = (s[i] == p[0]);
-        else
-            dp[i] = j + 1;
+        dp[i] = j + (s[i] == p[j]);
 
         if (dp[i] == m)
             return i - m + 1;
@@ -28,8 +29,31 @@ int strStr(string s, string p) {
     return -1;
 }
 
+// s: main string
+// p: pattern string
+// return: the maximum length K of matching p's substr for s[i] s.t. p[0:K-1] == s[i-K+1:i]
+vector<int> (string s, string p) {
+    vector<int> suf = longestCommonPrefixSuffix(p);
 
-//////// https://yeefun.github.io/kmp-algorithm-for-beginners/ 
+    int n = s.size();
+    vector<int> dp(n, 0); // dp[i]: the maximum length K s.t. p[0:K-1] == s[i-K+1:i]
+    dp[0] = (s[0] == p[0]);
+
+    for (int i = 1; i < n; i++) {
+        int j = dp[i-1];
+        while (j > 0 && (j == m || s[i] != p[j]))
+            j = suf[j-1];
+
+        dp[i] = j + (s[i] == p[j]);
+    }
+    
+    return dp;
+}
+////////////////////////////////////////////////////////////////////////
+
+
+
+// https://yeefun.github.io/kmp-algorithm-for-beginners/ 
 // s: main string
 // p: pattern string
 // return: index of first occurrence of p in s, -1 if not found
