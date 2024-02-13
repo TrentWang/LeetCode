@@ -17,7 +17,7 @@ string longestPalindrome(string s) {
         
     for (int i = 0; i < N; i++) {
         int r = 0;
-        if (i > maxRight) {
+        if (i < maxRight) {
             int j = maxCenter*2 - i;
             r = min(P[j], maxRight-i);
         }
