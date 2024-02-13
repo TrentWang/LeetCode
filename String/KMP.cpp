@@ -32,7 +32,7 @@ int strStr(string s, string p) {
 // s: main string
 // p: pattern string
 // return: the maximum length K of matching p's substr for s[i] s.t. p[0:K-1] == s[i-K+1:i]
-vector<int> getDp (string s, string p) {
+vector<int> getMatchedLen (string s, string p) {
     vector<int> suf = longestCommonPrefixSuffix(p);
 
     int n = s.size();
