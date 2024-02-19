@@ -38,3 +38,18 @@ vector<int> computeZFunction(const string& s) {
     }
     return z;
 }
+
+
+// return: all indexes of occurrence of pattern in text
+vector<int> searchPattern(const string& text, const string& pattern) {
+    string concat = pattern + "$" + text;
+    vector<int> z = computeZFunction(concat);
+
+    vector<int> ret;
+    for (int i = 0; i < z.size(); ++i) {
+        if (z[i] == pattern.size())
+            ret.push_back(i - pattern.size() - 1);
+    }
+
+    return ret;
+}
