@@ -10,18 +10,19 @@ X X X X X X X X . . . . . . X X X X X X X X
 由於 s[0:7] == s[L:R], 所以 s[5:7] == s[i:R]
 因此可以直接參考 z[i-L], 即 z[5] 的結果來計算 z[i]
 
+
 如果 z[5] == 1, 代表
-O O X X X O X X . . . . . . O O X X X O X X
+O O X X X O X X . . . . . . O O X X X O X X .
 0         5   7             L         i   R 
 z[i] 可以直接用 z[5] 的結果
+嚴格來說, 只要 i+z[5]<R 都可以直接用 z[5] 的結果
 
 
 如果 z[5] == 3, 代表
 O O O ? ? O O O Y . . . . . O O O ? ? O O O Z
-0         5   7             L         i   R 
+0   2     5   7             L         i   R 
 可以確定 s[0:2] == s[5:7] == s[i:R], 故 z[i] 可以直接繼承 z[5] 的結果
-另外可以確定 s[7+1] != [R+1]
-但是 s[i+z[5]] 有可能等於 s[z[5]], 即 s[3] 
+當初 s[7+1] != s[3] 挑戰失敗, 所以 z[5] 只有 3, 現在可以確定 s[7+1] != s[R+1], 所以 s[R+1] 需要挑戰 s[3] 看看, 即 s[i+z[5]] 有可能等於 s[z[5]] 
 */
 vector<int> computeZFunction(const string& s) {
     int n = s.size();
