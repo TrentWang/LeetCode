@@ -8,28 +8,18 @@ bool CheckCirculation(const vector<vector<int>>& G) {
             indegree[next]++;
     }
 
-    queue<int> q;
+    vector<int> bfs;
     for(int i = 0; i < n; ++i) {
         if(indegree[i] == 0)
-            q.push(i);
+            bfs.push_back(i);
     }
 
-    while(!q.empty()) {
-        int curr = q.front();	
-        q.pop();
-        for(int next : G[curr]) {
-            --indegree[next];
-            if(indegree[next] == 0)	
-                q.push(next);
-        }
-    }
+    for (int i = 0; i < bfs.size(); ++i)
+        for (int next : G[bfs[i]])
+            if (--indegree[next] == 0) 
+                bfs.push_back(next);
 
-    for(int i = 0; i < n; ++i) {
-        if(indegree[i] != 0)
-            return true;
-    }
-
-    return false;
+    return bfs.size() < n;
 }
 
 
