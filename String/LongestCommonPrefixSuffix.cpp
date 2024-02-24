@@ -14,10 +14,7 @@ vector<int> longestCommonPrefixSuffix(string s) {
         while (j >= 1 && s[j] != s[i]) {
             j = dp[j-1];
         }
-        if(j == 0)    
-            dp[i] = (s[j] == s[i]);
-        else
-            dp[i] = j + 1;
+        dp[i] = j + (s[j] == s[i]);
     }
     return dp;
 }

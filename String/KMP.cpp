@@ -50,6 +50,28 @@ int strStr(string s, string p) {
 
 // s: main string
 // p: pattern string
+// return: all indexes of occurrence of p in s
+vector<int> allStr(string s, string p) {
+    int n = s.size();
+    int m = p.size();
+
+    vector<int> suf = longestCommonPrefixSuffix(p);
+    vector<int> ret;
+    for(int i = 0, j = 0; i < n; ++i) {
+        while(j > 0 && s[i] != p[j]) {
+            j = suf[j-1];
+        }
+        j += s[i] == p[j];
+        if(j == m) {
+            ret.push_back(i - m + 1);
+            j = suf[j-1];
+        }
+    }
+    return ret;
+}
+
+// s: main string
+// p: pattern string
 // return: the maximum length K for s[i] s.t. p[0:K-1] == s[i-K+1:i]
 vector<int> getMatchedLen (string s, string p) {
     vector<int> suf = longestCommonPrefixSuffix(p);
