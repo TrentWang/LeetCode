@@ -1,3 +1,14 @@
+// 判斷是否為質數
+bool isPrime(int n) {
+    if (n <= 1)
+        return false;
+    for (int i = 2; i*i <= n; i++) {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
+
 // 埃拉托斯特尼篩法, Find all primes <= n.
 vector<int> Eratosthenes1(int n) {
     vector<bool> a(n+1, true);
