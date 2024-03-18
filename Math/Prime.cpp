@@ -70,3 +70,16 @@ vector<int> GetPrimes(int num) {
     }
     return ret;
 }
+
+// 判斷一個數是否為質數
+bool isPrime(int num) {
+    if(num == 2) 
+        return true;
+    if(num % 2 == 0 || num < 2)
+        return false;
+    for(int i = 3; i*i <= num; i += 2) {
+        if(num % i == 0)
+            return false;
+    }
+    return true;
+}
