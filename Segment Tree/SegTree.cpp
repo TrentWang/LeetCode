@@ -79,7 +79,7 @@ struct SegTree {
 
 
 
-// segment tree with range update (need lazy)
+// segment tree with range update (Lazy Propagation)
 template<class T> struct Seg {
     int lo, ro, size;
     vector<T> seg;
@@ -143,7 +143,7 @@ template<class T> struct Seg {
 
 
 
-// segment tree with range update (need lazy)
+// segment tree with range update (Lazy Propagation)
 template<class T> struct SegmentTree {
     int n;
     vector<T> lzy;
