@@ -14,7 +14,7 @@ public:
         while (x){
             ret += B[x];           // query prefix sum 
             //ret = max(ret, B[x]);  // query prefix max 
-            x -= x & (-x);
+            x -= x & (-x); // x & (-x) 會得到 x 的二進位表示中最右邊的那個 1 所代表的值
         }
         return ret;
     }

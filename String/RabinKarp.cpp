@@ -22,8 +22,8 @@ vector<int> RabinKarp(const string& pattern, const string& text) {
     vector<int> occurrences;
     for (int i = 0; i + PS - 1 < TS; i++) {
         long long hash_cur = (hash[i+PS] + mod - hash[i]) % mod;
-        if (hash_cur == hash_p * p_pow[i] % mod)
-            occurrences.push_back(i);
+        if (cur == hash_p * p_pow[i] % mod && text.compare(i, PS, pattern) == 0)
+            occ.push_back(i);
     }
     return occurrences;
 }
